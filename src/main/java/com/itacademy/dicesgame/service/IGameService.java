@@ -1,4 +1,4 @@
-package com.itacademy.dicesgame.service.impl;
+package com.itacademy.dicesgame.service;
 
 public class IGameService {
 }
