@@ -30,7 +30,7 @@ public class PlayerServiceImpl implements IPlayerService {
     @Override
     @Transactional(readOnly = true)
     public List<PlayerResponseDto> findAll() {
-        //return playerRepository.findAll();
+        System.out.println(playerRepository.findAll());
         return em.createQuery("from PlayerResponseDto").getResultList();
     }
 }

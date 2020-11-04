@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
 @RequestMapping("/players")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
 public class PlayerController {
 
     @Autowired
-    private PlayerServiceImpl playerService;
+    private PlayerServiceImpl playerServiceImpl;
 
     @GetMapping("/greeting")
     public String hello() {
@@ -23,7 +23,7 @@ public class PlayerController {
     @GetMapping("/")
     @ResponseBody
     public List<PlayerResponseDto> getPlayers() throws Exception{
-        return playerService.findAll();
+        return playerServiceImpl.findAll();
     }
 
 
