@@ -10,5 +10,6 @@ public interface IPlayerService {
     public List<Player> getAllPlayers();
     public Optional<Player> findPlayer(Long player_id);
     public Player savePlayer(Player player);
+    public Player updatePlayer(Long player_id, Player player);
 
 }

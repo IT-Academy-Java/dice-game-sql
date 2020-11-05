@@ -33,4 +33,13 @@ public class PlayerController {
         return ResponseEntity.ok().body(service.savePlayer(player));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updatePlayer(
+            @RequestBody Player player,
+            @PathVariable("id") Long id
+            ){
+        service.updatePlayer(id, player);
+        return ResponseEntity.ok("resource saved");
+    }
+
 }

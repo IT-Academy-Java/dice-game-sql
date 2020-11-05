@@ -25,4 +25,17 @@ public class PlayerServiceImpl {
         return repository.save(player);
     }
 
+    public Player updatePlayer(Long player_id, Player player){
+        Player oldPlayer = repository.findById(player_id);
+
+        player.setId(player_id);
+        player.setRegistration_date(oldPlayer.getRegistration_date());
+
+        System.out.println(player.getName());
+        System.out.println(player.getRegistration_date());
+        System.out.println(player.toString());
+
+        return  repository.save(player);
+    }
+
 }
