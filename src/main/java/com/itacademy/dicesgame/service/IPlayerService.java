@@ -1,13 +1,17 @@
 package com.itacademy.dicesgame.service;
 
-import com.itacademy.dicesgame.dto.PlayerResponseDto;
+import com.itacademy.dicesgame.entity.Player;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPlayerService {
 
-    public List<PlayerResponseDto> getPlayers();
+    public List<Player> getAllPlayers();
+    public Optional<Player> getPlayer(Long player_id);
 
-    public List<PlayerResponseDto> findAll();
+
+    /**public void create(Player player);
+    public Player savePlayer(Player player);**/
 
 }

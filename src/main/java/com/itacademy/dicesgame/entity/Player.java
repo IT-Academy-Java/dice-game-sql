@@ -1,4 +1,4 @@
-package com.itacademy.dicesgame.dto;
+package com.itacademy.dicesgame.entity;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,11 +8,10 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Component
 @Data
 @Entity
 @Table(name="player")
-public class PlayerResponseDto extends ResponseDto {
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +26,6 @@ public class PlayerResponseDto extends ResponseDto {
     @OneToMany(mappedBy = "player_id", cascade = {
             CascadeType.ALL
     })
-    private List<GameResponseDto> games;
+    private List<Game> games;
 
 }

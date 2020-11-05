@@ -1,8 +1,9 @@
 package com.itacademy.dicesgame.service.impl;
 
-import com.itacademy.dicesgame.dto.PlayerResponseDto;
-import com.itacademy.dicesgame.repository.PlayerRepository;
+import com.itacademy.dicesgame.entity.Player;
+import com.itacademy.dicesgame.repository.IPlayerRepository;
 import com.itacademy.dicesgame.service.IPlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,26 +12,34 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
-public class PlayerServiceImpl implements IPlayerService {
+public class PlayerServiceImpl {
 
-    private final PlayerRepository playerRepository;
+    @Autowired
+    private IPlayerRepository repository;
 
-    public PlayerServiceImpl(PlayerRepository playerRepository){
-        this.playerRepository = playerRepository;
+    public List<Player> getAllPlayers(){
+        return repository.findAll();
     }
 
-    @PersistenceContext
-    private EntityManager em;
 
-    @Override
-    public List<PlayerResponseDto> getPlayers() {
-        return null;
-    }
-
-    @Override
+    /**
+     * @Override
     @Transactional(readOnly = true)
-    public List<PlayerResponseDto> findAll() {
+    public List<Player> getAllPlayers() {
         System.out.println(playerRepository.findAll());
         return em.createQuery("from PlayerResponseDto").getResultList();
     }
+
+    @Override
+    @Transactional
+    public void create(Player player) {
+        if(player.getId() != null && player.getId() > 0){
+            em.merge(player);
+        } else{
+            em.persist(player);
+        }
+    }**/
+
+
+
 }

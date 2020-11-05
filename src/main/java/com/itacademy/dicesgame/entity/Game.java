@@ -1,15 +1,15 @@
-package com.itacademy.dicesgame.dto;
+package com.itacademy.dicesgame.entity;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Component
 @Data
 @Entity
 @Table(name="game")
-public class GameResponseDto extends ResponseDto{
+public class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

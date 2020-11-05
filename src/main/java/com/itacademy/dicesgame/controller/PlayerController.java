@@ -1,8 +1,10 @@
 package com.itacademy.dicesgame.controller;
 
-import com.itacademy.dicesgame.dto.PlayerResponseDto;
+import com.itacademy.dicesgame.entity.Player;
 import com.itacademy.dicesgame.service.impl.PlayerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,21 @@ public class PlayerController {
 
     @GetMapping("/")
     @ResponseBody
-    public List<PlayerResponseDto> getPlayers() throws Exception{
-        return playerServiceImpl.findAll();
+    public List<Player> getPlayers() throws Exception{
+        return playerServiceImpl.getAllPlayers();
     }
+
+
+    /**
+     *
+     @PostMapping("/")
+     @ResponseBody
+     public ResponseEntity<Player> save(@RequestBody Player player) {
+     ///shopService.create(player);
+     return new ResponseEntity<>(player, HttpStatus.OK);
+     }
+     */
+
 
 
 }
