@@ -13,5 +13,7 @@ import java.util.Optional;
 public interface IPlayerRepository extends JpaRepository<Player, Integer> {
 
     List<Player> findAll();
-    Optional<Player> findById(Long idPlayer);
+    Player findById(Long idPlayer);
+
+
 }
