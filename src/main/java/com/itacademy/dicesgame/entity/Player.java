@@ -1,13 +1,11 @@
 package com.itacademy.dicesgame.entity;
 
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
 @Table(name="player")
 public class Player {
@@ -25,6 +23,38 @@ public class Player {
     @OneToMany(mappedBy = "player_id", cascade = {
             CascadeType.ALL
     })
+
     private List<Game> games;
 
+    public Player() {
+        this.name = "Anonymous";
+    }
+
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getRegistration_date() {
+        return registration_date;
+    }
+
+    public void setRegistration_date(Date registration_date) {
+        this.registration_date = registration_date;
+    }
 }

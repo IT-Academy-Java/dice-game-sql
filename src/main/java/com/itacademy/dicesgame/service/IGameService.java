@@ -1,4 +1,9 @@
 package com.itacademy.dicesgame.service;
 
-public class IGameService {
+import com.itacademy.dicesgame.entity.Game;
+
+public interface IGameService {
+
+    public Game rollDices(long player_id);
+
 }

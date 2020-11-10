@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional
@@ -14,8 +13,5 @@ public interface IPlayerRepository extends JpaRepository<Player, Integer> {
 
     List<Player> findAll();
     Player findById(Long idPlayer);
-
-    //Player save(Long idPlayer, Player player);
-
 
 }
