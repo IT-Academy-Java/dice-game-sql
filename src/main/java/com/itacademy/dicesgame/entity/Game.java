@@ -70,7 +70,6 @@ public class Game implements Serializable {
 
     public int getRandomBetweenOneAndSix(){
         int random = (int) Math.floor(Math.random() * 6 + 1);
-        System.out.println("**//// genero el " + random);
         return random;
     }
 }
