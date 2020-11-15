@@ -13,13 +13,26 @@ public class Game implements Serializable {
 
     private int dice_value1;
     private int dice_value2;
-
     private boolean win;
 
-    private Long player_id;
+    @ManyToOne
+    @JoinColumn(name="player_id")
+    private Player player;
 
-    public Game(Long player_id) {
-        this.player_id = player_id;
+    /**private Long player_id;*/
+
+    public Game (){}
+
+    public Game(Player player){
+        this.player = player;
+    }
+
+    public Game(Long id, int dice_value1, int dice_value2, boolean win, Player player) {
+        this.id = id;
+        this.dice_value1 = dice_value1;
+        this.dice_value2 = dice_value2;
+        this.win = win;
+        this.player = player;
     }
 
     public int getDice_value1() {
@@ -44,14 +57,6 @@ public class Game implements Serializable {
 
     public void setWin(boolean win) {
         this.win = win;
-    }
-
-    public Long getPlayer_id() {
-        return player_id;
-    }
-
-    public void setPlayer_id(Long player_id) {
-        this.player_id = player_id;
     }
 
     public void rollDices(){
