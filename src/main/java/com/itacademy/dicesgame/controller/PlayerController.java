@@ -31,7 +31,7 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Player getPlayer(@PathVariable(value = "id") Long id) throws Exception{
+    public Player getPlayerById(@PathVariable(value = "id") Long id) throws Exception{
         return service.findPlayer(id);
     }
 

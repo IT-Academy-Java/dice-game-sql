@@ -8,6 +8,8 @@ import com.itacademy.dicesgame.service.IGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GameServiceImpl implements IGameService {
 
@@ -32,5 +34,10 @@ public class GameServiceImpl implements IGameService {
         } catch (Exception e){
             System.out.println("algo ha ido mal -> " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<Game> getGamesByPlayer(Long player_id) {
+        return gameRepository.getGamesByPlayerId(player_id);
     }
 }
