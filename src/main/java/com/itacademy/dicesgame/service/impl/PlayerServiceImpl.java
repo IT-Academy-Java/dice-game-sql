@@ -6,7 +6,9 @@ import com.itacademy.dicesgame.service.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PlayerServiceImpl implements IPlayerService {
@@ -17,6 +19,19 @@ public class PlayerServiceImpl implements IPlayerService {
     @Override
     public List<Player> getAllPlayers(){
         return repository.findAll();
+    }
+
+    @Override
+    public Map<String, Double> getAllPlayersWithAvgSuccessRate() {
+        List<Player> listAllPlayers = repository.findAll();
+        Map<String, Double> mapPlayersWithAvgSuccessRate = new HashMap<String, Double>();
+
+        if(listAllPlayers != null){
+            for(Player player: listAllPlayers){
+                mapPlayersWithAvgSuccessRate.put(player.getName(), (double) 1);
+            }
+        }
+        return mapPlayersWithAvgSuccessRate;
     }
 
     @Override
