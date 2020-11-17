@@ -1,5 +1,7 @@
 package com.itacademy.dicesgame.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +18,7 @@ public class Game implements Serializable {
     private boolean win;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="player_id")
     private Player player;
 

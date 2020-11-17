@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/players")
@@ -16,10 +17,16 @@ public class PlayerController {
     @Autowired
     private PlayerServiceImpl service;
 
-    @GetMapping("/")
+    @GetMapping()
     @ResponseBody
     public List<Player> getPlayers() throws Exception{
         return service.getAllPlayers();
+    }
+
+    @GetMapping("/")
+    @ResponseBody
+    public Map<String, Double> getPlayersWithAvgSuccessRate() throws Exception{
+        return service.getAllPlayersWithAvgSuccessRate();
     }
 
     @GetMapping("/{id}")
