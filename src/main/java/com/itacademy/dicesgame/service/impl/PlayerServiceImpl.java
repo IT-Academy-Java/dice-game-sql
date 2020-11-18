@@ -56,13 +56,18 @@ public class PlayerServiceImpl implements IPlayerService {
         List<Player> listAllPlayers = playerRepository.findAll();
         List<Game> listOfGamesActualPlayer = new ArrayList<Game>();
 
-        for(Player player: listAllPlayers){
-            listOfGamesActualPlayer = gameRepository.getGamesByPlayerId(player.getId());
-            Double successRate = player.getSuccessRateByPlayer(listOfGamesActualPlayer);
-            player.setSuccessRate(successRate.toString());
+        if(listAllPlayers != null && listAllPlayers.size() > 0){
+            try {
+                for(Player player: listAllPlayers){
+                    listOfGamesActualPlayer = gameRepository.getGamesByPlayerId(player.getId());
+                    Double successRate = player.getSuccessRateByPlayer(listOfGamesActualPlayer);
+                    player.setSuccessRate(successRate.toString());
+                }
+                listAllPlayers.sort(Comparator.comparing(Player::getSuccessRate).reversed());
+            } catch (Exception e){
+                System.out.println("Error -> " + e.getMessage());
+            }
         }
-
-        listAllPlayers.sort(Comparator.comparing(Player::getSuccessRate).reversed());
         return listAllPlayers;
     }
 

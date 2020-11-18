@@ -52,7 +52,7 @@ public class PlayerController {
             @PathVariable("id") Long id
             ){
         service.updatePlayer(id, player);
-        return ResponseEntity.ok("resource saved");
+        return ResponseEntity.ok("Player updated");
     }
 
 }
