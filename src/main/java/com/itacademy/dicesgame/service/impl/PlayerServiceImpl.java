@@ -8,10 +8,9 @@ import com.itacademy.dicesgame.service.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class PlayerServiceImpl implements IPlayerService {
@@ -50,6 +49,21 @@ public class PlayerServiceImpl implements IPlayerService {
             }
         }
         return mapPlayersWithAvgSuccessRate;
+    }
+
+    @Override
+    public List<Player> getPlayersRanking() {
+        List<Player> listAllPlayers = playerRepository.findAll();
+        List<Game> listOfGamesActualPlayer = new ArrayList<Game>();
+
+        for(Player player: listAllPlayers){
+            listOfGamesActualPlayer = gameRepository.getGamesByPlayerId(player.getId());
+            Double successRate = player.getSuccessRateByPlayer(listOfGamesActualPlayer);
+            player.setSuccessRate(successRate.toString());
+        }
+
+        listAllPlayers.sort(Comparator.comparing(Player::getSuccessRate).reversed());
+        return listAllPlayers;
     }
 
     @Override
