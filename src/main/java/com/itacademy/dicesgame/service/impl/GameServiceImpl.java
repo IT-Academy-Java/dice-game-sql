@@ -32,7 +32,7 @@ public class GameServiceImpl implements IGameService {
         try {
             gameRepository.deleteByPlayer(player);
         } catch (Exception e){
-            System.out.println("algo ha ido mal -> " + e.getMessage());
+            System.out.println("Error -> " + e.getMessage());
         }
     }
 

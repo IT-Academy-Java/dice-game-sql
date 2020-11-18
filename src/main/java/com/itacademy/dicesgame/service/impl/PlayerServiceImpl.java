@@ -1,11 +1,14 @@
 package com.itacademy.dicesgame.service.impl;
 
+import com.itacademy.dicesgame.entity.Game;
 import com.itacademy.dicesgame.entity.Player;
+import com.itacademy.dicesgame.repository.IGameRepository;
 import com.itacademy.dicesgame.repository.IPlayerRepository;
 import com.itacademy.dicesgame.service.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,21 +17,36 @@ import java.util.Map;
 public class PlayerServiceImpl implements IPlayerService {
 
     @Autowired
-    private IPlayerRepository repository;
+    private IPlayerRepository playerRepository;
+
+    @Autowired
+    private IGameRepository gameRepository;
 
     @Override
     public List<Player> getAllPlayers(){
-        return repository.findAll();
+        return playerRepository.findAll();
     }
 
     @Override
     public Map<String, Double> getAllPlayersWithAvgSuccessRate() {
-        List<Player> listAllPlayers = repository.findAll();
+        List<Player> listAllPlayers = playerRepository.findAll();
         Map<String, Double> mapPlayersWithAvgSuccessRate = new HashMap<String, Double>();
 
-        if(listAllPlayers != null){
+        if(listAllPlayers != null && listAllPlayers.size() > 0){
+            List<Game> gamesofActualPlayer = new ArrayList<Game>();
+
             for(Player player: listAllPlayers){
-                mapPlayersWithAvgSuccessRate.put(player.getName(), (double) 1);
+                gamesofActualPlayer = gameRepository.getGamesByPlayerId(player.getId());
+
+                if(gamesofActualPlayer.size() > 0){
+                    String key = player.getName();
+                    Double value = player.getSuccessRateByPlayer(gameRepository.getGamesByPlayerId(player.getId()));
+                    System.out.println();
+                    mapPlayersWithAvgSuccessRate.put(key,value);
+
+                } else{
+                    mapPlayersWithAvgSuccessRate.put(player.getName(), (double) 0) ;
+                }
             }
         }
         return mapPlayersWithAvgSuccessRate;
@@ -36,22 +54,22 @@ public class PlayerServiceImpl implements IPlayerService {
 
     @Override
     public Player findPlayer(Long player_id){
-        return repository.findById(player_id);
+        return playerRepository.findById(player_id);
     }
 
     @Override
     public Player savePlayer(Player player){
-        return repository.save(player);
+        return playerRepository.save(player);
     }
 
     @Override
     public Player updatePlayer(Long player_id, Player player){
-        Player oldPlayer = repository.findById(player_id);
+        Player oldPlayer = playerRepository.findById(player_id);
 
         player.setId(player_id);
         player.setRegistration_date(oldPlayer.getRegistration_date());
 
-        return  repository.save(player);
+        return  playerRepository.save(player);
     }
 
 }
