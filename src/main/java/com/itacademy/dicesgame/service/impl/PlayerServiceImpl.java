@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class PlayerServiceImpl implements IPlayerService {
@@ -32,7 +30,7 @@ public class PlayerServiceImpl implements IPlayerService {
         Map<String, Double> mapPlayersWithAvgSuccessRate = new HashMap<String, Double>();
 
         if(listAllPlayers != null && listAllPlayers.size() > 0){
-            List<Game> gamesofActualPlayer = new ArrayList<Game>();
+            List<Game> gamesofActualPlayer;
 
             for(Player player: listAllPlayers){
                 gamesofActualPlayer = gameRepository.getGamesByPlayerId(player.getId());
@@ -89,6 +87,40 @@ public class PlayerServiceImpl implements IPlayerService {
         player.setRegistration_date(oldPlayer.getRegistration_date());
 
         return  playerRepository.save(player);
+    }
+
+    @Override
+    public Player getLoserPlayer() {
+        List<Player> listAllPlayers = getListPlayerWithRate();
+        listAllPlayers.sort(Comparator.comparing(Player::getSuccessRate));
+        return listAllPlayers.get(0);
+    }
+
+    @Override
+    public Player getWinPlayer() {
+        List<Player> listAllPlayers = getListPlayerWithRate();
+        listAllPlayers.sort(Comparator.comparing(Player::getSuccessRate).reversed());
+        return listAllPlayers.get(0);
+    }
+
+    public List<Player> getListPlayerWithRate(){
+        List<Player> listAllPlayers = playerRepository.findAll();
+        List<Game> listOfGamesActualPlayer = new ArrayList<Game>();
+
+        if(listAllPlayers != null && listAllPlayers.size() > 0){
+            try {
+                for(Player player: listAllPlayers){
+                    listOfGamesActualPlayer = gameRepository.getGamesByPlayerId(player.getId());
+                    Double successRate = player.getSuccessRateByPlayer(listOfGamesActualPlayer);
+                    player.setSuccessRate(successRate.toString());
+                }
+
+            } catch (Exception e){
+                System.out.println("Error -> " + e.getMessage());
+            }
+        }
+
+        return listAllPlayers;
     }
 
 }

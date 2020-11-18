@@ -13,5 +13,6 @@ public interface IPlayerService {
     public Player findPlayer(Long player_id);
     public Player savePlayer(Player player);
     public Player updatePlayer(Long player_id, Player player);
-
+    public Player getLoserPlayer();
+    public Player getWinPlayer();
 }

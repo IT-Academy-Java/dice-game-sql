@@ -55,4 +55,16 @@ public class PlayerController {
         return ResponseEntity.ok("Player updated");
     }
 
+    @GetMapping("/ranking/loser")
+    @ResponseBody
+    public Player getLoserPlayer() throws Exception{
+        return service.getLoserPlayer();
+    }
+
+    @GetMapping("/ranking/winner")
+    @ResponseBody
+    public Player getWinPlayer() throws Exception{
+        return service.getWinPlayer();
+    }
+
 }
