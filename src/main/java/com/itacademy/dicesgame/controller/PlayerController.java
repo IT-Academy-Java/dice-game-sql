@@ -29,6 +29,12 @@ public class PlayerController {
         return service.getAllPlayersWithAvgSuccessRate();
     }
 
+    @GetMapping("/ranking")
+    @ResponseBody
+    public List<Player> getPlayersRanking() throws Exception{
+        return service.getPlayersRanking();
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
     public Player getPlayerById(@PathVariable(value = "id") Long id) throws Exception{
