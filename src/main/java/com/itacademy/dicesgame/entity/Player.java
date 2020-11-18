@@ -27,6 +27,9 @@ public class Player {
     })
     private List<Game> games;
 
+    @Transient
+    private String successRate;
+
     public Player() {
         this.name = "Anonymous";
     }
@@ -65,6 +68,14 @@ public class Player {
 
     public void setGames(List<Game> games) {
         this.games = games;
+    }
+
+    public String getSuccessRate() {
+        return successRate;
+    }
+
+    public void setSuccessRate(String successRate) {
+        this.successRate = successRate;
     }
 
     @Override
