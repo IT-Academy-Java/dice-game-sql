@@ -59,6 +59,14 @@ public class Player {
         this.registration_date = registration_date;
     }
 
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -67,5 +75,20 @@ public class Player {
                 ", registration_date=" + registration_date +
                 ", games=" + games +
                 '}';
+    }
+
+    public double getSuccessRateByPlayer(List<Game> gameList){
+        double successRate = 0;
+        if(gameList != null && gameList.size() > 0){
+            int gameListSizee = gameList.size();
+            int totalWin = 0;
+            for(Game game: gameList){
+                if(game.isWin()){
+                    totalWin++;
+                }
+            }
+            successRate = (totalWin * 100) / gameListSizee;
+        }
+        return successRate;
     }
 }
