@@ -12,7 +12,9 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface IGameRepository extends JpaRepository<Game, Long> {
+
     void deleteByPlayer(Player player);
+
     List<Game> getGamesByPlayerId(Long player_id);
 }
 
