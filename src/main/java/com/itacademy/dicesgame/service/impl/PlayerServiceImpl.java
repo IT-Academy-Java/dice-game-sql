@@ -76,7 +76,17 @@ public class PlayerServiceImpl implements IPlayerService {
 
     @Override
     public Player savePlayer(Player player){
-        return playerRepository.save(player);
+
+        if(player.getName() == null || player.getName() == ""){
+            player.setName("Anonymous");
+            return playerRepository.save(player);
+        } else if(playerRepository.existsByName(player.getName())){
+           // throw new Exception(player.getName());
+            System.out.println("Nombre ya existe");
+        } else{
+            return playerRepository.save(player);
+        }
+    return null;
     }
 
     @Override
