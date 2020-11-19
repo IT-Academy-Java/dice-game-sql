@@ -12,7 +12,9 @@ import java.util.List;
 public interface IPlayerRepository extends JpaRepository<Player, Integer> {
 
     List<Player> findAll();
+
     Player findById(Long idPlayer);
 
+    Boolean existsByName(String name);
 
 }
