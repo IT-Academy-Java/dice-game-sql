@@ -73,7 +73,11 @@ public class PlayerServiceImpl implements IPlayerService {
 
     @Override
     public Player findPlayer(Long player_id){
-        return playerRepository.findById(player_id);
+        if(playerRepository.findById(player_id) != null){
+            return playerRepository.findById(player_id);
+        } else{
+            throw new PlayerNotFoundException("Player with id -> " + player_id + " does not exist!!!");
+        }
     }
 
     @Override
@@ -95,14 +99,18 @@ public class PlayerServiceImpl implements IPlayerService {
 
     @Override
     public Player updatePlayer(Long player_id, Player player){
-        if(playerRepository.findById(player_id) == null || playerRepository.existsByName(player.getName())){
-            return null;
-        } else{
-            System.out.println("ES TRUE");
-            player.setId(player_id);
-            player.setRegistration_date(playerRepository.findById(player_id).getRegistration_date());
-            return playerRepository.save(player);
+        try {
+            if(playerRepository.findById(player_id) == null || playerRepository.existsByName(player.getName())){
+                throw new PlayerNotFoundException("Player with id: " + player_id + " does not exist!!!");
+            } else{
+                player.setId(player_id);
+                player.setRegistration_date(playerRepository.findById(player_id).getRegistration_date());
+                return playerRepository.save(player);
+            }
+        } catch (Exception e){
+            System.out.println("Error ->>> " + e.getMessage());
         }
+        return null;
     }
 
     @Override
@@ -138,5 +146,4 @@ public class PlayerServiceImpl implements IPlayerService {
 
         return listAllPlayers;
     }
-
 }
