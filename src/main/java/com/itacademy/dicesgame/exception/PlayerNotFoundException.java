@@ -1,7 +1,7 @@
 package com.itacademy.dicesgame.exception;
 
-public class PictureNotFoundException extends RuntimeException{
-    public PictureNotFoundException(String msg){
+public class PlayerNotFoundException extends RuntimeException{
+    public PlayerNotFoundException(String msg){
         super(msg);
     }
 }

@@ -13,8 +13,9 @@ public interface IPlayerRepository extends JpaRepository<Player, Integer> {
 
     List<Player> findAll();
 
-    Player findById(Long idPlayer);
+    Player findById(Long player_id);
 
     Boolean existsByName(String name);
+
 
 }

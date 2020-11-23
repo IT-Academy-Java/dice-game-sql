@@ -2,6 +2,8 @@ package com.itacademy.dicesgame.service.impl;
 
 import com.itacademy.dicesgame.entity.Game;
 import com.itacademy.dicesgame.entity.Player;
+import com.itacademy.dicesgame.exception.PlayerNameAlreadyExistsException;
+import com.itacademy.dicesgame.exception.PlayerNotFoundException;
 import com.itacademy.dicesgame.repository.IGameRepository;
 import com.itacademy.dicesgame.repository.IPlayerRepository;
 import com.itacademy.dicesgame.service.IPlayerService;
@@ -76,27 +78,31 @@ public class PlayerServiceImpl implements IPlayerService {
 
     @Override
     public Player savePlayer(Player player){
-
+    try{
         if(player.getName() == null || player.getName() == ""){
             player.setName("Anonymous");
             return playerRepository.save(player);
         } else if(playerRepository.existsByName(player.getName())){
-           // throw new Exception(player.getName());
-            System.out.println("Nombre ya existe");
+           throw new PlayerNameAlreadyExistsException("Player with name: " + player.getName() + " already exists!!!");
         } else{
             return playerRepository.save(player);
         }
-    return null;
+    } catch (Exception e){
+        System.out.println("Error -->> " + e.getMessage());
+    }
+        return null;
     }
 
     @Override
     public Player updatePlayer(Long player_id, Player player){
-        Player oldPlayer = playerRepository.findById(player_id);
-
-        player.setId(player_id);
-        player.setRegistration_date(oldPlayer.getRegistration_date());
-
-        return  playerRepository.save(player);
+        if(playerRepository.findById(player_id) == null || playerRepository.existsByName(player.getName())){
+            return null;
+        } else{
+            System.out.println("ES TRUE");
+            player.setId(player_id);
+            player.setRegistration_date(playerRepository.findById(player_id).getRegistration_date());
+            return playerRepository.save(player);
+        }
     }
 
     @Override

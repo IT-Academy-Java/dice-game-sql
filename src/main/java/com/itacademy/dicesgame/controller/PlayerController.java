@@ -51,8 +51,8 @@ public class PlayerController {
             @RequestBody Player player,
             @PathVariable("id") Long id
             ){
-        service.updatePlayer(id, player);
-        return ResponseEntity.ok("Player updated");
+
+        return ResponseEntity.ok().body(service.updatePlayer(id, player));
     }
 
     @GetMapping("/ranking/loser")
